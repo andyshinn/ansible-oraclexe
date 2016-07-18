@@ -2,23 +2,28 @@
 
   - name: add group dba
     group: name=dba system=yes state=present
+    become: yes
 
-  - file: path=/u01/app state=directory
+  - name: create oralce app directory
+    file: path=/u01/app state=directory
+    become: yes
 
   - name: add user oracle
     user: name=oracle system=yes group=dba home=/u01/app/oracle shell=/bin/bash state=present
+    become: yes
 
-  - file: path=/u01/app/oracle owner=oracle group=dba recurse=yes state=directory
+  - name: set recursive oracle owner to app directory
+    file: path=/u01/app/oracle owner=oracle group=dba recurse=yes state=directory
+    become: yes
 
-  - copy: src={{item}} dest=/tmp/ owner=root group=root mode=0755
+  - name: copy RPM from local to remote
+    copy: src={{item}} dest=/tmp/ owner=root group=root mode=0755
     with_fileglob:
       - oracle-xe-*.rpm
+    become: yes
 
   - include: oracle-xe-install-debian.yml
     when: ansible_os_family == "Debian"
 
   - include: oracle-xe-install-redhat.yml
     when: ansible_os_family == "RedHat"
-
-#  - include: oracle-xe-install-suse.yml
-#    when: ansible_os_family == "Suse"

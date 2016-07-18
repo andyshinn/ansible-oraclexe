@@ -1,0 +1,8 @@
+---
+
+- name: restart oracle-xe
+  service:
+    name: oracle-xe
+    state: restarted
+    enabled: yes
+  become: yes

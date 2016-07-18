@@ -16,9 +16,3 @@
   docker: no
 
   oracle-xe-test: no
-
-  proxy: no
-  proxy_url: ""
-  proxy_env:
-    http_proxy: "{{__proxy_url}}"
-    https_proxy: "{{__proxy_url}}"

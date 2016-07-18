@@ -1,6 +1,17 @@
 ansible-oraclexe
 ================
 
+# Form Notes
+
+This fork changes the role in some ways:
+
+* Use more native Ansible modules
+* Make tasks more idempotent and rely less on stat
+* Remove references to proxy_env, environment can be specified at play level now
+* Remove references to iptables, make this role more specific to Oracle XE, firewall should be managed elsewhere
+
+The changes have only been tested on CentOS 7.1.
+
 #Ansible playbook for oracle-xe
 
 This is an [Ansible](http://www.ansibleworks.com/) playbook for [Oracle XE 11g](http://www.oracle.com/technetwork/products/express-edition/overview/index.html). You can use it by itself or as part of a larger playbook customized for your local environment.
@@ -60,7 +71,7 @@ Example `my-master-playbook-main.yml`:
     - vars/my-vars.yml
 ```
 
-## Ansible oraclexe base images for docker 
+## Ansible oraclexe base images for docker
 
 [Exemple for ubuntu-14.04 ansible base image](https://github.com/fupelaqu/ansible-oraclexe-docker-base)
 
